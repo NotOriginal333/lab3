@@ -19,7 +19,6 @@ public class Hotel {
         this.expenses = 0.0;
     }
 
-    // Getters
     public String getName() {
         return name;
     }

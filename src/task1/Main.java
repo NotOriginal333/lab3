@@ -15,12 +15,12 @@ public class Main {
         myHotel.addHotelAmenity(spa);
 
         List<Amenity> cottage1Amenities = new ArrayList<>(Arrays.asList(wifi, sofa));
-        Cottage cottage1 = new Cottage("Luxury", 200, true, 4, 4,
-                cottage1Amenities);
+        Cottage cottage1 = new Cottage("Big one", "Luxury", 200, true,
+                4, 4, cottage1Amenities);
 
         List<Amenity> cottage2Amenities = new ArrayList<>(Arrays.asList(kitchen, crib));
-        Cottage cottage2 = new Cottage("Standard", 100, true, 3, 3,
-                cottage2Amenities);
+        Cottage cottage2 = new Cottage("Not big", "Standard", 100, true,
+                3, 3, cottage2Amenities);
 
         myHotel.addCottage(cottage1);
         myHotel.addCottage(cottage2);
@@ -52,13 +52,13 @@ public class Main {
         System.out.println("Cottages with WiFi:");
         List<Cottage> cottagesWithWifi = myHotel.filterCottagesByAmenity("WiFi");
         for (Cottage cottage : cottagesWithWifi) {
-            System.out.println(cottage.getCategory());
+            System.out.println(cottage.getName());
         }
 
         System.out.println("Luxury cottages:");
         List<Cottage> luxuryCottages = myHotel.filterCottagesByCategory("Luxury");
         for (Cottage cottage : luxuryCottages) {
-            System.out.println(cottage.getCategory());
+            System.out.println(cottage.getName());
         }
 
         System.out.println("\nFinancial Report:");

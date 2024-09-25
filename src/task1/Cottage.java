@@ -3,6 +3,7 @@ package task1;
 import java.util.*;
 
 public class Cottage {
+    final private String name;
     final private String category;
     final private double pricePerNight;
     final private Boolean isAvailable;
@@ -11,8 +12,9 @@ public class Cottage {
     final private List<Amenity> amenities;
     final private List<Booking> bookings;
 
-    public Cottage(String category, double pricePerNight, Boolean isAvailable,
+    public Cottage(String name, String category, double pricePerNight, Boolean isAvailable,
                    int maxCapacity, int totalCapacity, List<Amenity> amenities) {
+        this.name = name;
         this.category = category;
         this.pricePerNight = pricePerNight;
         this.isAvailable = isAvailable;
@@ -20,6 +22,14 @@ public class Cottage {
         this.totalCapacity = totalCapacity;
         this.amenities = Objects.requireNonNullElseGet(amenities, ArrayList::new);
         this.bookings = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
     public String getCategory() {
