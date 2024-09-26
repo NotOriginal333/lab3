@@ -20,7 +20,7 @@ public class Cottage {
         this.isAvailable = isAvailable;
         this.maxCapacity = maxCapacity;
         this.totalCapacity = totalCapacity;
-        this.amenities = Objects.requireNonNullElseGet(amenities, ArrayList::new);
+        this.amenities = new ArrayList<>(Objects.requireNonNullElseGet(amenities, ArrayList::new));
         this.bookings = new ArrayList<>();
     }
 
@@ -57,6 +57,9 @@ public class Cottage {
     }
 
     public void addAmenity(Amenity amenity) {
+        if (amenities == null) {
+            return;
+        }
         amenities.add(amenity);
         totalCapacity = maxCapacity + amenity.getGuestIncrease();
     }
@@ -81,7 +84,7 @@ public class Cottage {
         return true;
     }
 
-    private double calculatePrice(Date start, Date end) {
+    public double calculatePrice(Date start, Date end) {
         long duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
         double totalPrice = duration * pricePerNight;
 
