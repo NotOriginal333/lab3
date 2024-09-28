@@ -32,18 +32,22 @@ public class Main {
         }
 
         try {
-            Date startDate = new Date(2024 - 1900, Calendar.NOVEMBER, 1);
-            Date endDate = new Date(2024 - 1900, Calendar.NOVEMBER, 5);
-            cottage1.bookCottage("John Doe", startDate, endDate);
+            Calendar startDate = Calendar.getInstance();
+            Calendar endDate = Calendar.getInstance();
+            startDate.set(2024 - 1900, Calendar.NOVEMBER, 1);
+            endDate.set(2024 - 1900, Calendar.NOVEMBER, 5);
+            cottage1.bookCottage("John Doe", startDate, endDate, 100);
             myHotel.updateIncome(cottage1.getPricePerNight());
         } catch (BookingException e) {
             System.out.println(e.getMessage());
         }
 
         try {
-            Date startDate = new Date(2024 - 1900, Calendar.MARCH, 15);
-            Date endDate = new Date(2024 - 1900, Calendar.MARCH, 18);
-            cottage2.bookCottage("Jane Smith", startDate, endDate);
+            Calendar startDate = Calendar.getInstance();
+            Calendar endDate = Calendar.getInstance();
+            startDate.set(2024 - 1900, Calendar.NOVEMBER, 1);
+            endDate.set(2024 - 1900, Calendar.NOVEMBER, 5);
+            cottage2.bookCottage("Jane Smith", startDate, endDate, 100);
             myHotel.updateIncome(cottage2.getPricePerNight());
         } catch (BookingException e) {
             System.out.println(e.getMessage());

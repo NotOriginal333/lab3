@@ -1,14 +1,14 @@
 package task1;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Booking {
     private final String client;
-    private final Date startDate;
-    private final Date endDate;
+    private final Calendar startDate;
+    private final Calendar endDate;
     private final double totalPrice;
 
-    public Booking(String client, Date startDate, Date endDate, double totalPrice) {
+    public Booking(String client, Calendar startDate, Calendar endDate, double totalPrice) {
         this.client = client;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -19,11 +19,11 @@ public class Booking {
         return client;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public Calendar getEndDate() {
         return endDate;
     }
 
@@ -31,7 +31,7 @@ public class Booking {
         return totalPrice;
     }
 
-    public boolean overlapsWith(Date start, Date end) {
+    public boolean overlapsWith(Calendar start, Calendar end) {
         return (startDate.before(end) && endDate.after(start));
     }
 }

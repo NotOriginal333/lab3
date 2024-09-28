@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,31 +28,32 @@ public class CottageTest {
 
     @Test
     public void testBookCottage() throws BookingException {
-        Date start = getDate(Calendar.MARCH, 1);
-        Date end = getDate(Calendar.MARCH, 5);
-        cottage.bookCottage("John Doe", start, end);
+        Calendar start = getDate(Calendar.MARCH, 1);
+        Calendar end = getDate(Calendar.MARCH, 5);
+        cottage.bookCottage("John Doe", start, end, 100);
         assertEquals(1, cottage.getBookings().size());
     }
 
     @Test
     public void testIsAvailableDuring() throws BookingException {
-        Date start = getDate(Calendar.MARCH, 1);
-        Date end = getDate(Calendar.MARCH, 5);
-        cottage.bookCottage("John Doe", start, end);
+
+        Calendar start = getDate(Calendar.MARCH, 1);
+        Calendar end = getDate(Calendar.MARCH, 5);
+        cottage.bookCottage("John Doe", start, end, 100);
         assertFalse(cottage.isAvailableDuring(start, end));
     }
 
     @Test
     public void testCalculatePrice() throws BookingException {
-        Date start = getDate(Calendar.NOVEMBER, 1);
-        Date end = getDate(Calendar.NOVEMBER, 5);
-        double price = cottage.calculatePrice(start, end);
+        Calendar start = getDate(Calendar.NOVEMBER, 1);
+        Calendar end = getDate(Calendar.NOVEMBER, 5);
+        double price = cottage.calculatePrice(start, end, 200);
         assertEquals(640, price, 0.01);
     }
 
-    private Date getDate(int month, int day) {
+    private Calendar getDate(int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2024, month, day);
-        return calendar.getTime();
+        return calendar;
     }
 }

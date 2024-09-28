@@ -64,18 +64,18 @@ public class Cottage {
         totalCapacity = maxCapacity + amenity.getGuestIncrease();
     }
 
-    public void bookCottage(String client, Date start, Date end) throws BookingException {
+    public void bookCottage(String client, Calendar start, Calendar end, int price) throws BookingException {
         for (Booking booking : bookings) {
             if (booking.overlapsWith(start, end)) {
                 throw new BookingException("Cottage is already booked during this period.");
             }
         }
 
-        bookings.add(new Booking(client, start, end, calculatePrice(start, end)));
+        bookings.add(new Booking(client, start, end, calculatePrice(start, end, price)));
         System.out.println("Cottage booked successfully for " + client + " from " + start + " to " + end);
     }
 
-    public boolean isAvailableDuring(Date start, Date end) {
+    public boolean isAvailableDuring(Calendar start, Calendar end) {
         for (Booking booking : bookings) {
             if (booking.overlapsWith(start, end)) {
                 return false;
@@ -84,13 +84,17 @@ public class Cottage {
         return true;
     }
 
-    public double calculatePrice(Date start, Date end) {
-        long duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
-        double totalPrice = duration * pricePerNight;
+    public double calculatePrice(Calendar start, Calendar end, double pricePerNight) {
+        long durationInMillis = end.getTimeInMillis() - start.getTimeInMillis();
 
-        if (isLowSeason(start) || isLowSeason(end)) {
+        long durationInDays = durationInMillis / (1000 * 60 * 60 * 24);
+
+        double totalPrice = durationInDays * pricePerNight;
+
+        if (isLowSeason(start.getTime()) || isLowSeason(end.getTime())) {
             totalPrice *= 0.8;
         }
+
         return totalPrice;
     }
 
