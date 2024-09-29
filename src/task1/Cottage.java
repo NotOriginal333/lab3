@@ -1,5 +1,6 @@
 package task1;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Cottage {
@@ -65,23 +66,23 @@ public class Cottage {
     }
 
     public void bookCottage(String client, Calendar start, Calendar end, int price) throws BookingException {
-        for (Booking booking : bookings) {
-            if (booking.overlapsWith(start, end)) {
-                throw new BookingException("Cottage is already booked during this period.");
-            }
+        boolean overlapExists = bookings.stream()
+                .anyMatch(booking -> booking.overlapsWith(start, end));
+
+        if (overlapExists) {
+            throw new BookingException("Incorrect date!");
         }
 
         bookings.add(new Booking(client, start, end, calculatePrice(start, end, price)));
-        System.out.println("Cottage booked successfully for " + client + " from " + start + " to " + end);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String startDate = sdf.format(start.getTime());
+        String endDate = sdf.format(end.getTime());
+        System.out.println("Cottage booked successfully for " + client + " from " + startDate + " to " + endDate);
     }
 
     public boolean isAvailableDuring(Calendar start, Calendar end) {
-        for (Booking booking : bookings) {
-            if (booking.overlapsWith(start, end)) {
-                return false;
-            }
-        }
-        return true;
+        return bookings.stream()
+                .noneMatch(booking -> booking.overlapsWith(start, end));
     }
 
     public double calculatePrice(Calendar start, Calendar end, double pricePerNight) {

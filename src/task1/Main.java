@@ -34,8 +34,8 @@ public class Main {
         try {
             Calendar startDate = Calendar.getInstance();
             Calendar endDate = Calendar.getInstance();
-            startDate.set(2024 - 1900, Calendar.NOVEMBER, 1);
-            endDate.set(2024 - 1900, Calendar.NOVEMBER, 5);
+            startDate.set(2024, Calendar.NOVEMBER, 1);
+            endDate.set(2024, Calendar.NOVEMBER, 5);
             cottage1.bookCottage("John Doe", startDate, endDate, 100);
             myHotel.updateIncome(cottage1.getPricePerNight());
         } catch (BookingException e) {
@@ -45,8 +45,8 @@ public class Main {
         try {
             Calendar startDate = Calendar.getInstance();
             Calendar endDate = Calendar.getInstance();
-            startDate.set(2024 - 1900, Calendar.NOVEMBER, 1);
-            endDate.set(2024 - 1900, Calendar.NOVEMBER, 5);
+            startDate.set(2024, Calendar.NOVEMBER, 1);
+            endDate.set(2024, Calendar.NOVEMBER, 5);
             cottage2.bookCottage("Jane Smith", startDate, endDate, 100);
             myHotel.updateIncome(cottage2.getPricePerNight());
         } catch (BookingException e) {
@@ -67,5 +67,18 @@ public class Main {
 
         System.out.println("\nFinancial Report:");
         System.out.println(myHotel.generateFinancialReport());
+
+        System.out.println();
+
+        try {
+            Calendar startDate = Calendar.getInstance();
+            Calendar endDate = Calendar.getInstance();
+            startDate.set(2024, Calendar.NOVEMBER, 5);
+            endDate.set(2024, Calendar.NOVEMBER, 1);
+            cottage2.bookCottage("John Bender", startDate, endDate, 100);
+            myHotel.updateIncome(cottage2.getPricePerNight());
+        } catch (BookingException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
