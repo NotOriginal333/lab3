@@ -73,11 +73,13 @@ public class Cottage {
             throw new BookingException("Incorrect date!");
         }
 
+        double totalPrice = calculatePrice(start, end, price);
         bookings.add(new Booking(client, start, end, calculatePrice(start, end, price)));
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String startDate = sdf.format(start.getTime());
         String endDate = sdf.format(end.getTime());
         System.out.println("Cottage booked successfully for " + client + " from " + startDate + " to " + endDate);
+        System.out.println("Total price: $" + totalPrice);
     }
 
     public boolean isAvailableDuring(Calendar start, Calendar end) {
