@@ -18,11 +18,11 @@ public class Main {
 
         myHotel.addHotelAmenity(spa);
 
-        List<Amenity> cottage1Amenities = new ArrayList<>(Arrays.asList(wifi, sofa));
+        List<Amenity> cottage1Amenities = Arrays.asList(wifi, sofa);
         Cottage cottage1 = new Cottage("Big one", "Luxury", 200,
                 4, 4, cottage1Amenities);
 
-        List<Amenity> cottage2Amenities = new ArrayList<>(Arrays.asList(kitchen, crib));
+        List<Amenity> cottage2Amenities = Arrays.asList(kitchen, crib);
         Cottage cottage2 = new Cottage("Not big", "Standard", 100,
                 3, 3, cottage2Amenities);
 
