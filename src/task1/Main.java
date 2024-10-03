@@ -19,11 +19,11 @@ public class Main {
         myHotel.addHotelAmenity(spa);
 
         List<Amenity> cottage1Amenities = new ArrayList<>(Arrays.asList(wifi, sofa));
-        Cottage cottage1 = new Cottage("Big one", "Luxury", 200, true,
+        Cottage cottage1 = new Cottage("Big one", "Luxury", 200,
                 4, 4, cottage1Amenities);
 
         List<Amenity> cottage2Amenities = new ArrayList<>(Arrays.asList(kitchen, crib));
-        Cottage cottage2 = new Cottage("Not big", "Standard", 100, true,
+        Cottage cottage2 = new Cottage("Not big", "Standard", 100,
                 3, 3, cottage2Amenities);
 
         myHotel.addCottage(cottage1);
@@ -40,7 +40,7 @@ public class Main {
             Calendar endDate = Calendar.getInstance();
             startDate.set(2024, Calendar.NOVEMBER, 1);
             endDate.set(2024, Calendar.NOVEMBER, 5);
-            cottage1.bookCottage("John Doe", startDate, endDate, 100);
+            cottage1.bookCottage("John Doe", startDate, endDate);
             myHotel.updateIncome(cottage1.getPricePerNight());
         } catch (BookingException e) {
             System.out.println(e.getMessage());
@@ -51,7 +51,7 @@ public class Main {
             Calendar endDate = Calendar.getInstance();
             startDate.set(2024, Calendar.NOVEMBER, 1);
             endDate.set(2024, Calendar.NOVEMBER, 5);
-            cottage2.bookCottage("Jane Smith", startDate, endDate, 100);
+            cottage2.bookCottage("Jane Smith", startDate, endDate);
             myHotel.updateIncome(cottage2.getPricePerNight());
         } catch (BookingException e) {
             System.out.println(e.getMessage());
@@ -79,7 +79,7 @@ public class Main {
             Calendar endDate = Calendar.getInstance();
             startDate.set(2024, Calendar.NOVEMBER, 5);
             endDate.set(2024, Calendar.NOVEMBER, 1);
-            cottage2.bookCottage("John Bender", startDate, endDate, 100);
+            cottage2.bookCottage("John Bender", startDate, endDate);
             myHotel.updateIncome(cottage2.getPricePerNight());
         } catch (BookingException e) {
             System.out.println(e.getMessage());

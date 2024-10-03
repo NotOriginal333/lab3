@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class BookingTest {
 
     @Test
-    public void testOverlapsWith() {
+    public void testOverlapsWithTrue() {
         Calendar start1 = getDate(1);
         Calendar end1 = getDate(5);
         Calendar start2 = getDate(4);
@@ -17,6 +17,17 @@ public class BookingTest {
 
         Booking booking1 = new Booking("Client1", start1, end1, 1000);
         assertTrue(booking1.overlapsWith(start2, end2));
+    }
+
+    @Test
+    public void testOverlapsWithFalse() {
+        Calendar start1 = getDate(1);
+        Calendar end1 = getDate(2);
+        Calendar start2 = getDate(3);
+        Calendar end2 = getDate(4);
+
+        Booking booking1 = new Booking("Client1", start1, end1, 1000);
+        assertFalse(booking1.overlapsWith(start2, end2));
     }
 
     private Calendar getDate(int day) {

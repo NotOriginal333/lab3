@@ -16,7 +16,7 @@ public class CottageTest {
     @BeforeEach
     public void setUp() {
         sofaBed = new Amenity("Sofa Bed", 50, 2);
-        cottage = new Cottage("Cottage1", "Luxury", 200, true,
+        cottage = new Cottage("Cottage1", "Luxury", 200,
                 4, 4, List.of());
     }
 
@@ -28,23 +28,53 @@ public class CottageTest {
 
     @Test
     public void testBookCottage() throws BookingException {
-        Calendar start = getDate(Calendar.MARCH, 1);
-        Calendar end = getDate(Calendar.MARCH, 5);
-        cottage.bookCottage("John Doe", start, end, 100);
+        Calendar start = getDate(Calendar.JANUARY, 1);
+        Calendar end = getDate(Calendar.JANUARY, 5);
+        cottage.bookCottage("John Doe", start, end);
         assertEquals(1, cottage.getBookings().size());
+        assertEquals(800, cottage.calculatePrice(start, end, cottage.getPricePerNight()));
     }
 
     @Test
     public void testIsAvailableDuring() throws BookingException {
-
         Calendar start = getDate(Calendar.MARCH, 1);
         Calendar end = getDate(Calendar.MARCH, 5);
-        cottage.bookCottage("John Doe", start, end, 100);
+        cottage.bookCottage("John Doe", start, end);
         assertFalse(cottage.isAvailableDuring(start, end));
     }
 
     @Test
-    public void testCalculatePrice() throws BookingException {
+    public void testBookCottageAlreadyBooked() {
+        Calendar start1 = getDate(Calendar.JANUARY, 1);
+        Calendar end1 = getDate(Calendar.JANUARY, 5);
+
+        try {
+            cottage.bookCottage("Client1", start1, end1);
+        } catch (BookingException e) {
+            fail("Booking should have succeeded.");
+        }
+
+        Calendar start2 = getDate(Calendar.JANUARY, 1);
+        Calendar end2 = getDate(Calendar.JANUARY, 5);
+
+        assertThrows(BookingException.class, () ->
+                cottage.bookCottage("Client2", start2, end2),
+                "Expected to throw BookingException due to overlapping dates.");
+    }
+
+    @Test
+    public void testBookCottageInvalidDates() {
+        Calendar start = getDate(Calendar.JANUARY, 10);
+        Calendar end = getDate(Calendar.JANUARY, 5);
+
+        assertThrows(BookingException.class, () ->
+                cottage.bookCottage("Client", start, end),
+                "Expected to throw BookingException due to invalid dates.");
+    }
+
+
+    @Test
+    public void testCalculatePrice() {
         Calendar start = getDate(Calendar.NOVEMBER, 1);
         Calendar end = getDate(Calendar.NOVEMBER, 5);
         double price = cottage.calculatePrice(start, end, 200);

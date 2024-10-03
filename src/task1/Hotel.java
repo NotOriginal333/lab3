@@ -39,41 +39,49 @@ public class Hotel {
         return hotelAmenities;
     }
 
+    public void setIncome(double income) {
+        this.income = income;
+    }
+
+    public void setExpenses(double expenses) {
+        this.expenses = expenses;
+    }
+
     public void addHotelAmenity(Amenity amenity) {
-        hotelAmenities.add(amenity);
-        expenses += amenity.getCost();
+        getHotelAmenities().add(amenity);
+        setExpenses(amenity.getCost() + getExpenses());
     }
 
     public void addCottage(Cottage cottage) {
-        cottages.add(cottage);
-        expenses += cottage.getPricePerNight();
+        getCottages().add(cottage);
+        setExpenses(cottage.getPricePerNight() + getExpenses());
     }
 
     public List<Amenity> getAllAmenitiesForCottage(Cottage cottage) {
         List<Amenity> combinedAmenities = new ArrayList<>(cottage.getAmenities());
-        combinedAmenities.addAll(hotelAmenities);
+        combinedAmenities.addAll(getHotelAmenities());
         return combinedAmenities;
     }
 
     public List<Cottage> filterCottagesByAmenity(String amenityName) {
-        return cottages.stream()
+        return getCottages().stream()
                 .filter(cottage -> cottage.getAmenities().stream()
                         .anyMatch(amenity -> amenity.getName().equalsIgnoreCase(amenityName)))
                 .collect(Collectors.toList());
     }
 
     public List<Cottage> filterCottagesByCategory(String category) {
-        return cottages.stream()
+        return getCottages().stream()
                 .filter(cottage -> cottage.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
 
     public void updateIncome(double amount) {
-        income += amount;
+        setIncome(getIncome() + amount);
     }
 
     public String generateFinancialReport() {
-        return "Hotel: " + name + "\nIncome: " + income + "\nExpenses: " + expenses +
-                "\nNet Profit: " + (income - expenses);
+        return "Hotel: " + getName() + "\nIncome: " + getIncome() + "\nExpenses: " + getExpenses() +
+                "\nNet Profit: " + (getIncome() - getExpenses());
     }
 }

@@ -7,18 +7,16 @@ public class Cottage {
     final private String name;
     final private String category;
     final private double pricePerNight;
-    final private Boolean isAvailable;
     final private int maxCapacity;
     private int totalCapacity;
     final private List<Amenity> amenities;
     final private List<Booking> bookings;
 
-    public Cottage(String name, String category, double pricePerNight, Boolean isAvailable,
+    public Cottage(String name, String category, double pricePerNight,
                    int maxCapacity, int totalCapacity, List<Amenity> amenities) {
         this.name = name;
         this.category = category;
         this.pricePerNight = pricePerNight;
-        this.isAvailable = isAvailable;
         this.maxCapacity = maxCapacity;
         this.totalCapacity = totalCapacity;
         this.amenities = new ArrayList<>(Objects.requireNonNullElseGet(amenities, ArrayList::new));
@@ -41,10 +39,6 @@ public class Cottage {
         return pricePerNight;
     }
 
-    public Boolean getAvailable() {
-        return isAvailable;
-    }
-
     public int getMaxCapacity() {
         return maxCapacity;
     }
@@ -57,24 +51,32 @@ public class Cottage {
         return amenities;
     }
 
-    public void addAmenity(Amenity amenity) {
-        if (amenities == null) {
-            return;
-        }
-        amenities.add(amenity);
-        totalCapacity = maxCapacity + amenity.getGuestIncrease();
+    public void setTotalCapacity(int totalCapacity) {
+        this.totalCapacity = totalCapacity;
     }
 
-    public void bookCottage(String client, Calendar start, Calendar end, int price) throws BookingException {
-        boolean overlapExists = bookings.stream()
+    public void addAmenity(Amenity amenity) {
+        if (getAmenities() == null) {
+            return;
+        }
+        getAmenities().add(amenity);
+        setTotalCapacity(getMaxCapacity() + amenity.getGuestIncrease());
+    }
+
+    public void bookCottage(String client, Calendar start, Calendar end) throws BookingException {
+        if (start.after(end)) {
+            throw new BookingException("Start date cannot be after end date.");
+        }
+
+        boolean overlapExists = getBookings().stream()
                 .anyMatch(booking -> booking.overlapsWith(start, end));
 
         if (overlapExists) {
             throw new BookingException("Incorrect date!");
         }
 
-        double totalPrice = calculatePrice(start, end, price);
-        bookings.add(new Booking(client, start, end, calculatePrice(start, end, price)));
+        double totalPrice = calculatePrice(start, end, getPricePerNight());
+        getBookings().add(new Booking(client, start, end, calculatePrice(start, end, getPricePerNight())));
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String startDate = sdf.format(start.getTime());
         String endDate = sdf.format(end.getTime());
@@ -83,7 +85,7 @@ public class Cottage {
     }
 
     public boolean isAvailableDuring(Calendar start, Calendar end) {
-        return bookings.stream()
+        return getBookings().stream()
                 .noneMatch(booking -> booking.overlapsWith(start, end));
     }
 

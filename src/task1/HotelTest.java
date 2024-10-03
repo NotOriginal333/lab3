@@ -19,9 +19,9 @@ public class HotelTest {
         hotel = new Hotel("Test Hotel");
         wifi = new Amenity("WiFi", 10, 0);
         spa = new Amenity("SPA", 100, 0);
-        cottage1 = new Cottage("Cottage1", "Luxury", 200, true,
+        cottage1 = new Cottage("Cottage1", "Luxury", 200,
                 4, 4, List.of(wifi));
-        cottage2 = new Cottage("Cottage2", "Standard", 150, true,
+        cottage2 = new Cottage("Cottage2", "Standard", 150,
                 3, 3, List.of());
     }
 

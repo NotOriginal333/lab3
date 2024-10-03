@@ -32,7 +32,7 @@ public class Booking {
     }
 
     public boolean overlapsWith(Calendar start, Calendar end) {
-        return (startDate.before(end) || endDate.after(start));
+        return !(end.before(getStartDate()) || start.after(getEndDate()));
     }
 }
 
