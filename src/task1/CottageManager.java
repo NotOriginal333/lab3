@@ -46,14 +46,14 @@ public class CottageManager {
     }
 
     public List<Cottage> filterCottagesByAmenity(String amenityName) {
-        return cottages.stream()
+        return getCottages().stream()
                 .filter(cottage -> cottage.getAmenities().stream()
                         .anyMatch(amenity -> amenity.getName().equalsIgnoreCase(amenityName)))
                 .collect(Collectors.toList());
     }
 
     public List<Cottage> filterCottagesByCategory(String category) {
-        return cottages.stream()
+        return getCottages().stream()
                 .filter(cottage -> cottage.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
