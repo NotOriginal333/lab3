@@ -1,6 +1,8 @@
-package task1;
+package useless;
 
 import org.junit.jupiter.api.Test;
+import task1.Amenity;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AmenityTest {

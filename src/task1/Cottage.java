@@ -65,14 +65,14 @@ public class Cottage {
 
     public void bookCottage(String client, Calendar start, Calendar end) throws BookingException {
         if (start.after(end)) {
-            throw new BookingException("Start date cannot be after end date.");
+            throw new BookingException("Start date cannot be after end date.", getName(), client);
         }
 
         boolean overlapExists = getBookings().stream()
                 .anyMatch(booking -> booking.overlapsWith(start, end));
 
         if (overlapExists) {
-            throw new BookingException("Incorrect date!");
+            throw new BookingException("Incorrect date!", getName(), client);
         }
 
         double totalPrice = calculatePrice(start, end, getPricePerNight());

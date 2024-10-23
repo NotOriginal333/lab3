@@ -1,7 +1,10 @@
-package task1;
+package useless;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import task1.Amenity;
+import task1.BookingException;
+import task1.Cottage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
