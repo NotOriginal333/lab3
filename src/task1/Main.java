@@ -10,18 +10,20 @@ public class Main {
     public static void main(String[] args) {
         CottageManager myCottageManager = new CottageManager();
 
-        Amenity wifi = new Amenity("WiFi", 10, 0);
-        Amenity kitchen = new Amenity("Kitchen", 20, 0);
-        Amenity sofa = new Amenity("Sofa", 30, 1);
-        Amenity crib = new Amenity("Crib", 15, 1);
+        Amenity wifi = new Amenity("WiFi", 10, 0, 10);
+        Amenity kitchen = new Amenity("Kitchen", 20, 0, 100);
+        Amenity sofa = new Amenity("Sofa", 30, 1, 20);
+        Amenity crib = new Amenity("Crib", 15, 1, 50);
 
-        List<Amenity> cottage1Amenities = Arrays.asList(wifi, sofa);
         Cottage cottage1 = new Cottage("Big one", "Luxury", 200,
-                4, 4, cottage1Amenities);
+                4, 4, 1000);
+        cottage1.addAmenity(wifi);
+        cottage1.addAmenity(sofa);
 
-        List<Amenity> cottage2Amenities = Arrays.asList(kitchen, crib);
         Cottage cottage2 = new Cottage("Not big", "Standard", 100,
-                3, 3, cottage2Amenities);
+                3, 3, 100);
+        cottage2.addAmenity(crib);
+        cottage2.addAmenity(kitchen);
 
         myCottageManager.addCottage(cottage1);
         myCottageManager.addCottage(cottage2);
@@ -38,7 +40,7 @@ public class Main {
             startDate.set(2024, Calendar.NOVEMBER, 1);
             endDate.set(2024, Calendar.NOVEMBER, 5);
             cottage1.bookCottage("John Doe", startDate, endDate);
-            myCottageManager.updateTotalIncome(cottage1.getPricePerNight());
+            myCottageManager.updateTotalIncome(cottage1.getIncome());
         } catch (BookingException e) {
             System.out.println(e.getMessage());
         }
@@ -49,7 +51,7 @@ public class Main {
             startDate.set(2024, Calendar.NOVEMBER, 1);
             endDate.set(2024, Calendar.NOVEMBER, 5);
             cottage2.bookCottage("Jane Smith", startDate, endDate);
-            myCottageManager.updateTotalIncome(cottage2.getPricePerNight());
+            myCottageManager.updateTotalIncome(cottage2.getIncome());
         } catch (BookingException e) {
             System.out.println(e.getMessage());
         }

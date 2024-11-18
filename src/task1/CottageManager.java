@@ -17,7 +17,7 @@ public class CottageManager {
 
     public void addCottage(Cottage cottage) {
         cottages.add(cottage);
-        updateTotalExpenses(100);
+        updateTotalExpenses(cottage.getExpenses());
     }
 
     public List<Cottage> getCottages() {

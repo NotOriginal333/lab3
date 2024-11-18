@@ -9,17 +9,26 @@ public class Cottage {
     final private double pricePerNight;
     final private int maxCapacity;
     private int totalCapacity;
-    final private List<Amenity> amenities;
+    private double expenses;
+    final private List<Amenity> amenities=new ArrayList<>();
     final private List<Booking> bookings;
 
+    public double getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(double expenses) {
+        this.expenses = expenses;
+    }
+
     public Cottage(String name, String category, double pricePerNight,
-                   int maxCapacity, int totalCapacity, List<Amenity> amenities) {
+                   int maxCapacity, int totalCapacity, double expenses) {
         this.name = name;
         this.category = category;
         this.pricePerNight = pricePerNight;
         this.maxCapacity = maxCapacity;
         this.totalCapacity = totalCapacity;
-        this.amenities = new ArrayList<>(Objects.requireNonNullElseGet(amenities, ArrayList::new));
+        this.expenses = expenses;
         this.bookings = new ArrayList<>();
     }
 
@@ -60,6 +69,7 @@ public class Cottage {
             return;
         }
         getAmenities().add(amenity);
+        setExpenses(getExpenses() + amenity.getExpenses());
         setTotalCapacity(getMaxCapacity() + amenity.getGuestIncrease());
     }
 
@@ -87,6 +97,12 @@ public class Cottage {
     public boolean isAvailableDuring(Calendar start, Calendar end) {
         return getBookings().stream()
                 .noneMatch(booking -> booking.overlapsWith(start, end));
+    }
+
+    public double getIncome() {
+         return getBookings().stream()
+            .mapToDouble(Booking::getTotalPrice)
+            .sum();
     }
 
     public double calculatePrice(Calendar start, Calendar end, double pricePerNight) {
